@@ -7,4 +7,10 @@ export type Project = {
   href?: string;
   repoUrl?: string;
   featured?: boolean;
+  image?: string;
+  readmeImage?: string;
+  // GitHub-specific metadata
+  stars?: number;
+  language?: string;
+  lastUpdated?: string;
 };
