@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { getFeaturedProjects } from "@/lib/projects";
+import { ProjectCard } from "@/components/project-card";
 
-export default function Home() {
-  const featured = getFeaturedProjects();
+export default async function Home() {
+  const featured = await getFeaturedProjects();
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6 sm:py-24">
@@ -35,24 +36,24 @@ export default function Home() {
 
       {featured.length > 0 && (
         <section className="mt-20" aria-labelledby="featured-heading">
-          <h2
-            id="featured-heading"
-            className="text-xl font-semibold tracking-tight"
-          >
-            Featured work
-          </h2>
-          <ul className="mt-6 grid gap-4 sm:grid-cols-2">
+          <div className="flex items-baseline justify-between gap-4">
+            <h2
+              id="featured-heading"
+              className="text-xl font-semibold tracking-tight"
+            >
+              Featured work
+            </h2>
+            <Link
+              href="/projects"
+              className="text-sm font-medium text-[var(--accent)] hover:underline"
+            >
+              View all →
+            </Link>
+          </div>
+          <ul className="mt-6 grid gap-6 sm:grid-cols-2">
             {featured.map((project) => (
               <li key={project.slug}>
-                <Link
-                  href={`/projects/${project.slug}`}
-                  className="block rounded-lg border border-[var(--border)] bg-[var(--surface)] p-5 transition-colors hover:border-[var(--accent)] hover:bg-[var(--surface-hover)]"
-                >
-                  <h3 className="font-semibold">{project.title}</h3>
-                  <p className="mt-2 text-sm text-[var(--muted)]">
-                    {project.summary}
-                  </p>
-                </Link>
+                <ProjectCard project={project} />
               </li>
             ))}
           </ul>
